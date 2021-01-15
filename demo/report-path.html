@@ -79,7 +79,7 @@
       var $selected = $('#chart-container').find('.node.focused');
       if ($selected.length) {
         $selected.parents('.nodes').children(':has(.focused)').find('.node:first').each(function(index, superior) {
-          if (!$(superior).find('.horizontalEdge:first').closest('table').parent().siblings().is('.hidden')) {
+          if (!$(superior).find('.horizontalEdge:first').closest('.node').parent().siblings().is('.hidden')) {
             $(superior).find('.horizontalEdge:first').trigger('click');
           }
         });
@@ -90,8 +90,14 @@
     });
 
     $('#btn-reset').on('click', function() {
-      $('#chart-container').find('.hidden').removeClass('hidden')
-        .end().find('.slide-up, .slide-right, .slide-left, .focused').removeClass('slide-up slide-right slide-left focused');
+      $('#chart-container')
+        .find('.hidden').removeClass('hidden')
+        .end().find('.slide-up, .slide-right, .slide-left, .focused')
+        .removeClass('slide-up slide-right slide-left focused');
+      $('#chart-container')
+        .find('.isCollapsedSibling, .isChildrenCollapsed, .isSiblingsCollapsed')
+        .removeClass('isCollapsedSibling isChildrenCollapsed isSiblingsCollapsed');
+        
       $('#btn-report-path').prop('disabled', false);
       $('#selected-node').val('');
     });

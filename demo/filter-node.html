@@ -47,15 +47,15 @@
       $chart.find('.node').filter(function(index, node) {
           return $(node).text().toLowerCase().indexOf(keyWord) > -1;
         }).addClass('matched')
-        .closest('table').parents('table').find('tr:first').find('.node').addClass('retained');
+        .closest('.hierarchy').parents('.hierarchy').children('.node').addClass('retained');
       // hide the unmatched nodes
       $chart.find('.matched,.retained').each(function(index, node) {
         $(node).removeClass('slide-up')
           .closest('.nodes').removeClass('hidden')
-          .siblings('.lines').removeClass('hidden');
-        var $unmatched = $(node).closest('table').parent().siblings().find('.node:first:not(.matched,.retained)')
-          .closest('table').parent().addClass('hidden');
-        $unmatched.parent().prev().children().slice(1, $unmatched.length * 2 + 1).addClass('hidden');
+          .siblings('.hierarchy').removeClass('isChildrenCollapsed');
+        var $unmatched = $(node).closest('.hierarchy').siblings().find('.node:first:not(.matched,.retained)')
+          .closest('.hierarchy').addClass('hidden');
+        // $unmatched.parent().prev().children().slice(1, $unmatched.length * 2 + 1).addClass('hidden');
       });
       // hide the redundant descendant nodes of the matched nodes
       $chart.find('.matched').each(function(index, node) {

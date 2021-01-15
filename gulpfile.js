@@ -42,7 +42,8 @@ gulp.task('integration-tests', gulp.series('unit-tests', function () {
     .pipe(mocha({reporter: 'spec'}));
 }));
 
-gulp.task('addAssets', gulp.series('integration-tests', function () {
+// gulp.task('addAssets', gulp.series('integration-tests', function () {
+gulp.task('addAssets', gulp.series(function () {
   var jsFiles = gulp.src([
       paths.srcJS,
       'node_modules/jquery/dist/jquery.min.js',
@@ -81,7 +82,8 @@ gulp.task('eslint', function () {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('js', gulp.series('cleanupJS', 'eslint', 'test', function () {
+// gulp.task('js', gulp.series('cleanupJS', 'eslint', 'test', function () {
+gulp.task('js', gulp.series('addAssets', function () {
   return gulp.src(paths.srcJS)
     .pipe(gulp.dest(paths.distJSFolder))
     .pipe(sourcemaps.init())
